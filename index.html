@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Un mensaje para ti</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:Poppins;
+background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+overflow:hidden;
+text-align:center;
+}
+
+/* PANTALLAS */
+
+.screen{
+display:none;
+width:90%;
+max-width:600px;
+animation:fade .6s ease;
+}
+
+.active{
+display:block;
+}
+
+@keyframes fade{
+from{opacity:0; transform:scale(.9);}
+to{opacity:1; transform:scale(1);}
+}
+
+/* SOBRE */
+
+.envelope{
+width:220px;
+height:150px;
+background:#ff4f81;
+position:relative;
+margin:auto;
+border-radius:6px;
+cursor:pointer;
+}
+
+.envelope:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:0;
+height:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-top:80px solid #ff7aa3;
+transform-origin:top;
+transition:.5s;
+}
+
+.envelope.open:before{
+transform:rotateX(180deg);
+}
+
+/* CARTA */
+
+.card{
+background:white;
+border-radius:10px;
+padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+text-align:left;
+margin-top:20px;
+}
+
+.card h2{
+font-family:"Dancing Script";
+font-size:28px;
+margin-bottom:10px;
+}
+
+.card p{
+font-family:"Dancing Script";
+font-size:20px;
+line-height:1.6;
+}
+
+/* BOTON */
+
+button{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:#ff4f81;
+color:white;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+/* CORAZONES */
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+0%{
+transform:translateY(-50px);
+opacity:1;
+}
+
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- pantalla 1 -->
+
+<div class="screen active" id="s1">
+<h2>Te llegó un mensaje 💌</h2>
+<button onclick="next(2)">Abrir</button>
+</div>
+
+<!-- pantalla 2 -->
+
+<div class="screen" id="s2">
+
+<h2>Presiona el sobre</h2>
+
+<div class="envelope" id="env" onclick="openLetter()"></div>
+
+<div id="letter" style="display:none">
+
+<div class="card">
+
+<h2>Holiii bonita 💗</h2>
+
+<p>
+No sé muy bien cómo empezar esta carta, pero sentí que necesitaba escribirte lo que a veces no me animo a decirte en persona.
+Desde que te conocí algo en mí cambió.
+</p>
+
+<p>
+Eres muy importante para mí y estoy muy orgulloso de ti y de lo linda que siempre te miras.
+</p>
+
+<p>
+Quiero que recuerdes que no estás sola. Siempre estaré aquí para apoyarte, animarte y sacarte una sonrisa cuando lo necesites.
+</p>
+
+<p>
+Y sabes algo bonito: los pingüinos eligen a una sola persona para toda su vida.
+Así que yo seré tu pingüinito 💗
+</p>
+
+<p>
+Con mucho cariño 💌
+</p>
+
+</div>
+
+<button onclick="next(1)">Regresar</button>
+
+</div>
+
+</div>
+
+<script>
+
+function next(n){
+
+document.querySelector(".active").classList.remove("active")
+document.getElementById("s"+n).classList.add("active")
+
+}
+
+function openLetter(){
+
+document.getElementById("env").classList.add("open")
+
+setTimeout(()=>{
+
+document.getElementById("letter").style.display="block"
+hearts()
+
+},400)
+
+}
+
+function hearts(){
+
+for(let i=0;i<40;i++){
+
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML=["💗","💖","💓","❤️"][Math.floor(Math.random()*4)]
+
+h.style.left=Math.random()*100+"vw"
+h.style.animationDuration=(Math.random()*3+2)+"s"
+
+document.body.appendChild(h)
+
+setTimeout(()=>h.remove(),5000)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
